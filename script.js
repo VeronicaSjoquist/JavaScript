@@ -1,3 +1,30 @@
+function printTodos() {
+  const ulElement = document.getElementById("todo-list");
+  let tasks = "";
+  for (let i = 0; i < todo.length; i++) {
+    const e = todo[i];
+
+    const whenDoneHTML = /*html*/ `
+  <span class="badge rounded-pill bg-success">Done</span>
+      `;
+
+    tasks += /*html*/ `
+    <li class="list-group-item">
+      <div class="row justify-content-between m-4">
+          <div class="col">
+            ${e.do}
+          </div>
+          <div class="col">
+            ${e.done ? whenDoneHTML : ""}
+          </div>
+      </div>
+    </li>`;
+  }
+  ulElement.innerHTML = tasks;
+}
+
+printTodos();
+
 const btnElement = document.getElementById("new-todo-button");
 btnElement.onclick = function () {
   LetUserChoose();

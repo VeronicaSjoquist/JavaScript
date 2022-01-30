@@ -6,38 +6,16 @@ const todo = [
 
 console.log(todo);
 
+/*Metod för att lägga till ny todo i todo-listan*/
 function addTodo(what) {
   todo.push({ do: what, done: false });
 }
 
+/**
+ * Metod för att checka av todo
+ * @param {number} index - Todo som användaren valt att checka av.
+ */
 function finishTodo(index) {
   e = index - 1;
   todo[e].done = true;
 }
-
-function printTodos() {
-  const ulElement = document.getElementById("todo-list");
-  let tasks = "";
-  for (let i = 0; i < todo.length; i++) {
-    const e = todo[i];
-
-    const whenDoneHTML = /*html*/ `
-  <span class="badge rounded-pill bg-success">Done</span>
-      `;
-
-    tasks += /*html*/ `
-    <li class="list-group-item">
-      <div class="row justify-content-between m-4">
-          <div class="col">
-            ${e.do}
-          </div>
-          <div class="col">
-            ${e.done ? whenDoneHTML : ""}
-          </div>
-      </div>
-    </li>`;
-  }
-  ulElement.innerHTML = tasks;
-}
-
-printTodos();
