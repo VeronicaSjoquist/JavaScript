@@ -1,43 +1,7 @@
-const todo = [
-  { do: "handla mjölk", done: false },
-  { do: "reklamera looper-pedal", done: true },
-  { do: "covid19 tredje vaccin", done: false },
-];
-
-console.log(copy(todo));
-
-todo[0].done = true;
-
-console.log(todo);
-
-function copy(obj) {
-  const str = JSON.stringify(obj);
-  const copy = JSON.parse(str);
-  return copy;
-}
-
-function add() {
-  todo.push({ do: prompt("What task du you wish to add?"), done: false });
-  console.log(todo);
-  console.log("Added new todo");
-}
-
-function PrintTodos() {
-  let tasks = "Todo: \n";
-  for (let i = 0; i < todo.length; i++) {
-    const e = todo[i];
-    tasks += "Att Göra: " + e.do + " Klart?: " + e.done + "\n";
-  }
-  alert(tasks);
-}
-
-function finishTodo() {
-  i = prompt("What task would you like to finish?");
-
-  e = parseInt(i);
-
-  todo[e].done = true;
-}
+const btnElement = document.getElementById("new-todo-button");
+btnElement.onclick = function () {
+  LetUserChoose();
+};
 
 function LetUserChoose() {
   let go = true;
@@ -49,11 +13,11 @@ function LetUserChoose() {
     if (user_pick === 0) {
       go = false;
     } else if (user_pick === 1) {
-      add();
+      addTodo(prompt("Vad vill du lägga till för uppgift?"));
     } else if (user_pick === 2) {
-      finishTodo();
+      finishTodo(prompt(`${showTodos()} \nVilken todo vill du checka av?`));
     } else if (user_pick === 3) {
-      PrintTodos();
+      alert(showTodos());
     } else {
       alert("Please enter a valid option");
     }
@@ -61,35 +25,11 @@ function LetUserChoose() {
   printTodos();
 }
 
-function printTodos() {
-  const ulElement = document.getElementById("todo-list");
-  // generera html kod utifrån vad som finns i todos Arrayen
-  let tasks = "";
+function showTodos() {
+  let tasks = "Todo:\n";
   for (let i = 0; i < todo.length; i++) {
     const e = todo[i];
-
-    const whenDoneHTML = /*html*/ `
-<span class="badge rounded-pill bg-success">Done</span>
-    `;
-
-    tasks += /*html*/ `
-  <li class="list-group-item">
-    <div class="row justify-content-between m-4">
-        <div class="col">
-          ${e.do}
-        </div>
-        <div class="col">
-          ${e.done ? whenDoneHTML : ""}
-        </div>
-    </div>
-  </li>`;
+    tasks += `${i + 1}. Att göra: ${e.do}${e.done ? ", KLAR" : ""}\n`;
   }
-  ulElement.innerHTML = tasks;
+  return tasks;
 }
-
-printTodos();
-
-const btnElement = document.getElementById("new-todo-button");
-btnElement.onclick = function () {
-  LetUserChoose();
-};
